@@ -7,23 +7,35 @@ const showCart = document.getElementById('show-cart-btn');
 
 document.addEventListener('DOMContentLoaded', function() {
 let cartList = JSON.parse(localStorage.getItem('cartList')) || [];
-showCart.style.display = 'none';
 const overlay = document.getElementById('cart-overlay');
 
 
+const hasVisitedThisTab = sessionStorage.getItem('tabSessionStarted');
+
+    if (!hasVisitedThisTab) { //detects if user visited the site for the first time and clears out any cart items
+        
+        const cartList = [];
+        localStorage.setItem('cartList', JSON.stringify(cartList));
+        sessionStorage.setItem('tabSessionStarted', 'true');
+        
+    } else {
 
 
-if (cartList.length > 0) {
+        if (cartList.length > 0) {
     if (overlay.classList.contains('show')) {
         showCart.style.display = 'none';
     } else {
 
     showCart.style.display = 'block';
-
+        console.log("123")
     }
     
         
     } 
+
+    }
+
+
 
  
 
@@ -76,8 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function addToCart(buttonElement) {
 
-    const hasVisitedThisTab = sessionStorage.getItem('tabSessionStarted');
-
+    
     const carName = buttonElement.getAttribute('data-name');
     const carPrice = buttonElement.getAttribute('data-price');
     const carImage = buttonElement.getAttribute('data-image');
@@ -91,12 +102,7 @@ function addToCart(buttonElement) {
         brand: carName.split(' ')[0] // Extracts "Toyota", "Honda", etc. for the subtitle
     };
 
-    if (!hasVisitedThisTab) { //detects if user visited the site for the first time and clears out any cart items
-        
-        const cartList = [];
-        localStorage.setItem('cartList', JSON.stringify(cartList));
-        sessionStorage.setItem('tabSessionStarted', 'true');
-    }
+    
 
     let cartList = JSON.parse(localStorage.getItem('cartList')) || [];
     cartList.push(selectedCar);
@@ -109,6 +115,7 @@ function addToCart(buttonElement) {
 }
 
 function openCartModal() {
+    
     const overlay = document.getElementById('cart-overlay');
     overlay.classList.add('show');
     if (overlay.classList.contains('show')) {
@@ -116,6 +123,7 @@ function openCartModal() {
     } else {
 
     showCart.style.display = 'block';
+        console.log("123")
 
     }
     renderCartModal();
@@ -133,7 +141,7 @@ function closeCart(event, forceClose = false) {
     } else {
 
     showCart.style.display = 'block';
-
+        console.log("123")
     }
     
         
