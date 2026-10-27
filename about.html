@@ -5,11 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Roll an Go Rentals</title>
     <link rel="stylesheet" href="Roll an Go.css">
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
+<style>
+
+
+
+#show-cart-btn {
+    display: block; 
+    position: fixed !important; 
+    bottom: 30px !important; 
+    right: 30px !important; 
+    z-index: 999999 !important; 
+    
+    border: 2px solid #d3a44b;
+    background-color: #01071f; 
+    color: #d3a44b; 
+    cursor: pointer; 
+    padding: 12px 24px; 
+    border-radius: 25px; 
+    font-size: 16px; 
+    font-weight: bold;
+    white-space: nowrap; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+#show-cart-btn:hover {
+    background-color: #d3a44b; 
+    color: #01071f;
+    transform: translateY(-3px); 
+}
+
+</style>
+
 <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <header>
         <div class="logo-container">
             <a href="index.html">
@@ -30,6 +80,18 @@
         <h1 class="site-title" style="font-size: 36px;">About Roll an Go Rentals</h1>
         <p style="color: #a7addc; margin-top: 10px;">Driven by innovation, built by students.</p>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="about-container">
         
@@ -82,6 +144,22 @@
 
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="footer">
         <p>&copy; 2026 Roll an Go Rentals. All rights reserved.</p>
     </div>
@@ -96,7 +174,49 @@
     </div>
     </div>
 
+
+
+
+<button id="show-cart-btn" title="Go to top">Show cart items</button>
+
 </body>
+
+
+<div id="cart-overlay" class="cart-overlay" onclick="closeCart(event)">
+    <div class="cart-modal" id="cart-modal">
+        
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="header-actions">
+                <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+                <button class="close-cart-btn" onclick="closeCart(event, true)">×</button>
+            </div>
+        </div>
+
+        <div id="modal-cart-items">
+
+
+        </div>
+
+
+        <div class="cart-footer">
+            <div class="footer-details">
+                <div class="timeframe">
+                    <span class="label">Timeframe</span>
+                    <span class="value">1 Day (Demo)</span>
+                </div>
+                <div class="total-price-section">
+                    <span class="label">Total Price</span>
+                    <span class="value" id="modal-total-price">₱0.00</span>
+                </div>
+            </div>
+            <div class="footer-action">
+                <a id="proceed-btn"  class="checkout-btn">PROCEED TO BOOKING →</a>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script>
 
@@ -132,4 +252,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
+
 </html>

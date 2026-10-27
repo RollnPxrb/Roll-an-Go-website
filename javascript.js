@@ -3,6 +3,50 @@
 const allowedIP = ["103.141.203.2", "136.158.83.194"]; // company wifi : KMC Solutions IP address & Home wifi
 
 // localStorage.setItem('allowedIP', JSON.stringify(allowedIP));
+const showCart = document.getElementById('show-cart-btn');
+
+document.addEventListener('DOMContentLoaded', function() {
+let cartList = JSON.parse(localStorage.getItem('cartList')) || [];
+showCart.style.display = 'none';
+const overlay = document.getElementById('cart-overlay');
+
+
+
+
+if (cartList.length > 0) {
+    if (overlay.classList.contains('show')) {
+        showCart.style.display = 'none';
+    } else {
+
+    showCart.style.display = 'block';
+
+    }
+    
+        
+    } 
+
+ 
+
+showCart.addEventListener('click', function() {
+        
+    openCartModal();
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+});
+
+
 
 function showCategory(id){
   document.getElementById('categoriesView').style.display = 'none';
@@ -60,18 +104,40 @@ function addToCart(buttonElement) {
 
     // Open the modal and update the view
     openCartModal();
+
+    
 }
 
 function openCartModal() {
     const overlay = document.getElementById('cart-overlay');
     overlay.classList.add('show');
+    if (overlay.classList.contains('show')) {
+        showCart.style.display = 'none';
+    } else {
+
+    showCart.style.display = 'block';
+
+    }
     renderCartModal();
 }
 
 function closeCart(event, forceClose = false) {
+     const overlay = document.getElementById('cart-overlay');
+     let cartList = JSON.parse(localStorage.getItem('cartList')) || [];
     if (forceClose || event.target.id === 'cart-overlay') {
         document.getElementById('cart-overlay').classList.remove('show');
     }
+    if (cartList.length > 0) {
+    if (overlay.classList.contains('show')) {
+        showCart.style.display = 'none';
+    } else {
+
+    showCart.style.display = 'block';
+
+    }
+    
+        
+    } 
 }
 
 function renderCartModal() {
