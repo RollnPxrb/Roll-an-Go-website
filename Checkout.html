@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link rel="stylesheet" href="Roll an Go.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+
+<style>
+
+.parent-container {
+  position: relative;
+  /* other styles like width, background, etc. */
+}
+
+
+.hovering-element {
+  position: absolute;
+  top: 10px;  /* 10 pixels down from the top of the parent */
+  left: 20px; /* 20 pixels in from the left of the parent */
+  
+  /* Optional: use z-index if you need it to overlap above other things */
+  z-index: 10; 
+}
+
+
+/* Style the button container */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #d3a44b;
+  font-family: sans-serif;
+  transition: color 0.3s;
+}
+
+/* Create the arrow icon using borders */
+.arrow {
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid #d3a44b;
+  border-bottom: 2px solid #d3a44b;
+  transform: rotate(45deg);
+  margin-right: 8px; /* Space between arrow and text */
+  transition: border-color 0.3s;
+}
+
+/* Add a hover effect */
+.back-btn:hover {
+  color: #fce19a;
+}
+.back-btn:hover .arrow {
+  border-color: #fce19a;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#btn-ship {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #btn-ship:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+    #btn-pick {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #btn-pick:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+    #btn-confirm {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #btn-confirm:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+    #btn-close-map {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #btn-close-map:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+    #btn-back {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #btn-back:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+     #cOrder {
+        background-color: #d3a44b; 
+        color: #01071f;
+    }
+    #cOrder:hover {
+        background-color: #fce19a;
+        border-color: #fce19a;
+    }
+
+</style>
+
+<div class="parent-container">
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Company Logo">
+            </a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    
+
+
+    <h1 id="titleForm" class="hideCheckout" style="text-align:center; margin-top:30px; color:#ffffff;">Secure Booking</h1>
+
+    <button id="back-page" class="back-btn" class="hovering-element" >
+  <span class="arrow"></span>
+  Back
+</button>
+    
+    <div  style="display: flex; flex-wrap: wrap; justify-content: space-around; padding: 20px;">
+
+    
+        
+        <!-- LEFT COLUMN: FORMS -->
+        <div class="section" style="width: 55%; padding:20px; border:2px solid #d3a44b; background-color:#01071f; border-radius: 8px;">
+            <form action="#" method="POST" id="checkout-form">
+                
+
+
+
+            <div  id="delivery-dialogue" style="position: relative; top: 120px; left: 50%; transform: translate(-50%, -50%); background-color: #01071f; border: 2px solid #d3a44b; padding: 30px; border-radius: 12px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9998; ">
+    
+                    <h2 style="color: #d3a44b; font-size: 24px; margin-top: 50;">How should you get the car?</h2>
+                    <p style="color: #ffffff; font-size: 16px; margin: 15px 0 25px;">Please select your preferred hand-off method for this rental.</p>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                <button id="btn-ship" class="btn">
+                                Ship to address
+                            </button>
+                            
+                            <button id="btn-pick" class="btn">
+                                Pick up
+                            </button>
+                            
+
+                        
+                    </div>
+
+                </div>
+
+                <div class="hideCheckout"  id="follow-up-box" style="display: None; position: fixed; top: 130px; left: 50%; transform: translate(-50%, -50%); width: fit-content; max-width: 400px; background-color: #01071f; border: 2px solid #d3a44b; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9998; position: relative;">
+                    <p id="follow-up-text" style="color: #ffffff; font-size: 16px; margin: 0;"></p>
+
+                    
+
+                    <button id="btn-confirm" class="btn" style="margin-top: 30px;">
+                        Confirm
+                    </button>
+                </div>
+
+
+
+
+
+
+                <div id="main-checkout-form">
+
+                        <!-- Personal Information -->
+                <h2 class="hideCheckout"  id="pinfo" style="color:#ffffff; border-bottom: 1px solid #333; padding-bottom: 10px;">1. Personal Information</h2>
+                <div class="hideCheckout"  style="margin-top: 15px;">
+                    <div>
+                        <label for="first-name" style="color:#a7addc;">First Name</label><br>
+                        <input type="text" id="first-name" name="first-name" placeholder="John" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="last-name" style="color:#a7addc;">Last Name</label><br>
+                        <input type="text" id="last-name" name="last-name" placeholder="Doe" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="email" style="color:#a7addc;">Email Address</label><br>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                </div>
+                <br>
+
+                <!-- Shipping Address -->
+                <h2 class="hideCheckout"  id="title-shipping-address" style="color:#ffffff; border-bottom: 1px solid #333; padding-bottom: 10px;">2. Shipping Address</h2>
+                <div class="hideCheckout"  id="shipping-address"style="margin-top: 15px;">
+                    <div>
+                        <label for="address" style="color:#a7addc;">Street Address</label><br>
+                        <input type="text" id="address" name="address" placeholder="123 Main St, Apt 4B" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="city" style="color:#a7addc;">City</label><br>
+                        <input type="text" id="city" name="city" placeholder="New York" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="state" style="color:#a7addc;">State / Province</label><br>
+                        <input type="text" id="state" name="state" placeholder="NY" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="zip" style="color:#a7addc;">ZIP / Postal Code</label><br>
+                        <input type="text" id="zip" name="zip" placeholder="10001" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="country" style="color:#a7addc;">Country</label><br>
+                        <select id="country" name="country" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="AU">Australia</option>
+                            <option value="PH">Philippines</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+
+                <!-- Payment Method -->
+                <h2 class="hideCheckout"  id="pdetails" style="color:#ffffff; border-bottom: 1px solid #333; padding-bottom: 10px;">3. Payment Details</h2>
+                <div class="hideCheckout"  style="margin-top: 15px;">
+                    <div>
+                        <label for="card-name" style="color:#a7addc;">Name on Card</label><br>
+                        <input type="text" id="card-name" name="card-name" placeholder="John Doe" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="card-number" style="color:#a7addc;">Card Number</label><br>
+                        <input type="text" id="card-number" name="card-number" placeholder="0000 0000 0000 0000" required style="width:90%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                    </div>
+                    <br>
+                    <div style="display:flex; gap:20px;">
+                        <div style="flex:1;">
+                            <label for="expiry" style="color:#a7addc;">Expiration Date</label><br>
+                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required style="width:100%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                        </div>
+                        <div style="flex:1; padding-right: 10%;">
+                            <label for="cvc" style="color:#a7addc;">CVC</label><br>
+                            <input type="text" id="cvc" name="cvc" placeholder="123" required style="width:100%; padding:10px; border-radius:4px; border:none; margin-top:5px;">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <button class="hideCheckout"  type="submit" id="cOrder" style="width:90%; margin-top: 20px; padding: 15px 40px;">
+                    Complete Order
+                </button>
+            </form>
+
+
+
+
+                </div>
+
+
+                
+        </div>
+
+        <!-- RIGHT COLUMN: CART / ORDER SUMMARY -->
+        <div class="optionPick" class="section" style="width: 35%; padding:20px; border:2px solid #d3a44b; background-color:#01071f; align-self: flex-start; border-radius: 8px;">
+            <h2 style="color:#ffffff; border-bottom: 2px solid #d3a44b; padding-bottom:10px;">Order Summary</h2>
+            
+            <div id="checkout-cart-items" style="margin-top: 15px;">
+                <p style="color:#ffffff;">Loading cart...</p>
+            </div>
+
+            <!-- Totals -->
+            <div style="border-top: 2px solid #d3a44b; margin-top:20px; padding-top:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#ffffff;">
+                    <span>Subtotal: </span>
+                    <span id="checkout-subtotal">₱0.00</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#ffffff;">
+                    <span>Tax (12%): </span>
+                    <span id="checkout-tax">₱0.00</span>
+                </div>
+            </div>
+            
+            <div style="border-top: 2px solid #d3a44b; padding-top:20px; display:flex; justify-content:space-between; color:#ffffff;">
+                <strong style="font-size:20px;">Total: </strong>
+                <strong style="font-size:20px; color:#e5a823;" id="checkout-total">₱0.00</strong>
+            </div>
+
+            <div style="text-align:center; margin-top: 30px;">
+                <p style="color:#a7a5a5;"><small>Secure checkout powered by Stripe</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div id="geoblock" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background-color: #01071f; border: 2px solid #d3a44b; padding: 40px; border-radius: 12px; max-width: 500px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <h2 style="color: #d3a44b; font-size: 28px; margin-top: 0;">Out of service error</h2>
+        <p style="color: #ffffff; font-size: 18px; line-height: 1.5; margin: 20px 0;">
+            <span id="geotext">Access to this website is restricted in your current location.</span>
+        </p>
+
+    </div>
+    </div>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+<div id="map-popup" style="display: None; position: fixed; top: 0%; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); z-index: 9999; justify-content: center; align-items: center;">
+    
+    <div style="background-color: #01071f; border: 2px solid #d3a44b; padding: 30px; border-radius: 12px; width: 90%; max-width: 800px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <h2 style="color: #d3a44b; font-size: 24px; margin-top: 0;">Select Pick-Up Location</h2>
+        
+        <!-- Your existing map viewport placed inside the box -->
+        <div class="location-container" style="margin: 20px auto; ">
+            <div class="map-viewport" id="viewport" style="width: 100%; height: 400px; border: 1px solid #d3a44b; border-radius: 8px; overflow: hidden; cursor: grab; position: relative;">
+    
+                <!-- We drag THIS wrapper now, so the map and the pin move together -->
+                <div id="map-content" style="position: absolute; top: 0; left: 0; transform-origin: top left;">
+                    <img src="images/map.png" alt="Map View" id="draggable-map" style="display: block; width: 100%; min-width: 600px;">
+                    
+                    <!-- The Pin (Hidden until clicked) -->
+                    <div id="map-pin" style="display: none; position: absolute; font-size: 40px; transform: translate(-50%, -100%); pointer-events: none;">
+                        📍
+                    </div>
+                </div>
+
+            </div>
+            
+            <p class="map-instructions" style="color: #a7addc; margin-top: 15px;">💡 Click and drag anywhere on the map to pan around the area.</p>
+        </div>
+
+        <button id="btn-back" style="padding: 15px 40px;">
+            Back
+        </button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button id="btn-close-map" style="padding: 15px 40px;">
+            Confirm Location
+        </button>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footer">
+  <p>&copy; 2026 Roll an Go Rentals. All rights reserved.</p>
+</div>
+
+
+</body>
+<script src="javascript.js"></script>
+<script>
+
+    // let allowedIP = JSON.parse(localStorage.getItem('allowedIP')) || [];
+    const text = document.getElementById('geotext')
+    const pdetails = document.getElementById('pdetails')
+    const pinfo = document.getElementById('pinfo')
+
+    let isOptions = true;
+    const btnBackPage = document.getElementById('back-page');
+
+
+    text.innerText = "Access to this website is restricted in your current location."
+
+document.addEventListener('DOMContentLoaded', () => {
+    const geoblock = document.getElementById('geoblock');
+    // Fetch the user's current public IP address
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const userIP = data.ip;
+
+            const currentIP = allowedIP.some(item => item.includes(userIP));
+            if (currentIP) {
+                // They are on the correct Wi-Fi, reveal the website
+                geoblock.style.display = 'none';
+                text.innerText = "Access to this website is restricted in your current location."
+            } else {
+                // They are on the wrong Wi-Fi, show the error
+                geoblock.style.display = 'flex';
+                text.innerText = "Access to this website is restricted in your current location."
+            }
+        })
+        .catch(error => {
+            geoblock.style.display = 'flex';
+            text.innerText = "You are currently offline. Please check your network settings.";
+
+        });
+});
+
+
+
+
+    const checkoutForm = document.getElementById('main-checkout-form');
+
+const shipMethodConfirm = document.getElementById('btn-confirm');
+
+const firstName = document.getElementById('first-name');
+const lastName = document.getElementById('last-name');
+const email = document.getElementById('email');
+
+const shippingAddress = document.getElementById('shipping-address');
+const addressTitle = document.getElementById('title-shipping-address');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const state = document.getElementById('state');
+const zip = document.getElementById('zip');
+const country = document.getElementById('country');
+
+const cardName = document.getElementById('card-name');
+const cardNumber = document.getElementById('card-number');
+const expiry = document.getElementById('expiry');
+const cvc = document.getElementById('cvc');
+
+const mapPin = document.getElementById('map-pin');
+let shipping = true;
+
+    const btnShip = document.getElementById('btn-ship');
+    const btnPickup = document.getElementById('btn-pick');
+    const followUpBox = document.getElementById('follow-up-box');
+    const followUpText = document.getElementById('follow-up-text');
+
+    btnShip.addEventListener('click', function() {
+        followUpText.innerHTML = "Your selected car will be shipped to the address filled out on the form. You will first receive an email with your official receipt, followed by a final email notification once the car has been successfully delivered.";
+        followUpBox.style.display = 'block';
+    });
+
+    btnPickup.addEventListener('click', function() {
+        followUpText.innerHTML = "Your car will be prepared at your chosen pick-up spot from our map locations. First, an official receipt will be sent to your email. Then, you will receive a final confirmation email once you have successfully picked up the car";
+        followUpBox.style.display = 'block'; 
+
+    });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const viewport = document.getElementById('viewport');
+    const mapContent = document.getElementById('map-content');
+    
+
+    let isDragging = false;
+    let isMoved = false; 
+    let startX, startY;
+    
+    let currentX = 0; 
+    let currentY = 0;
+
+    
+    viewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        isMoved = false;
+        viewport.style.cursor = 'grabbing';
+        startX = e.clientX - currentX;
+        startY = e.clientY - currentY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        isMoved = true; 
+        currentX = e.clientX - startX;
+        currentY = e.clientY - startY;
+        mapContent.style.transform = `translate(${currentX}px, ${currentY}px)`;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.style.cursor = 'grab';
+    });
+
+    viewport.addEventListener('click', (e) => {
+        if (isMoved) return; 
+
+        const mapImage = document.getElementById('draggable-map');
+        const rect = mapImage.getBoundingClientRect();
+
+       
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+       
+        const xPercent = (clickX / rect.width) * 100;
+        const yPercent = (clickY / rect.height) * 100;
+
+        console.log(`Clicked Spot - X: ${xPercent.toFixed(2)}%, Y: ${yPercent.toFixed(2)}%`);
+
+    
+        const targetCenterX = 25.50; 
+        const targetCenterY = 85.00;
+
+       
+        const distance = Math.sqrt(
+            Math.pow(xPercent - targetCenterX, 2) + 
+            Math.pow(yPercent - targetCenterY, 2)
+        );
+
+       
+        const allowedRadius = 18;
+
+        if (distance <= allowedRadius) {
+            
+            const snapPixelX = (targetCenterX / 100) * rect.width;
+            const snapPixelY = (targetCenterY / 100) * rect.height;
+
+            mapPin.style.left = `${snapPixelX}px`;
+            mapPin.style.top = `${snapPixelY}px`;
+            mapPin.style.display = 'block';
+        } else {
+            alert("Please click directly on the designated black Roll an Go pickup spot.");
+        }
+    });
+});
+
+    const titleForm = document.getElementById('titleForm');
+
+    const deliveryDialogue = document.getElementById('delivery-dialogue');
+    const mapPopup = document.getElementById('map-popup');
+    const btnConfirm = document.getElementById('btn-confirm');
+    const btnCloseMap = document.getElementById('btn-close-map');
+    const btnBack = document.getElementById('btn-back');
+    const completeOrder = document.getElementById('cOrder');
+
+    let selectedMethod = ""; // Tracks what they clicked
+
+    // 1. Ship Button Clicked
+    btnShip.addEventListener('click', function() {
+        selectedMethod = "ship";
+        followUpText.innerHTML = "Your selected car will be shipped to the address filled out on the form. You will first receive an email with your official receipt, followed by a final email notification once the car has been successfully delivered.";
+        followUpBox.style.display = 'block';
+        pdetails.innerHTML = "3. Payment Details";
+    });
+
+    // 2. Pick up Button Clicked
+    btnPickup.addEventListener('click', function() {
+        selectedMethod = "pickup";
+        followUpText.innerHTML = "Your car will be prepared at your chosen pick-up spot from our map locations. First, an official receipt will be sent to your email. Then, you will receive a final confirmation email once you have successfully picked up the car";
+        followUpBox.style.display = 'block'; 
+        shippingAddress.style.display = 'none';
+            addressTitle.style.display = 'none';
+    });
+
+    // 3. Confirm Button Clicked
+    btnConfirm.addEventListener('click', function() {
+        // Hide the main dialogue and the follow-up text
+        deliveryDialogue.style.display = 'none';
+        followUpBox.style.display = 'none';
+
+        // If they chose "Pick up", reveal the map overlay
+        if (selectedMethod === "pickup") {
+
+            shippingAddress.style.display = 'none';
+            addressTitle.style.display = 'none';
+            mapPopup.style.display = 'flex';
+            // shippingAddress.style.display = 'none';
+            // addressTitle.style.display = 'none';
+            zip.required = false;
+            address.required = false;
+            city.required = false;
+            state.required = false;
+            country.required = false;
+            shipping = false;
+            pdetails.innerHTML = "2. Payment Details";
+
+            // Array.from(shippingAddress.children).forEach(child => {
+            // child.classList.add('hideCheckout');
+            // });
+            document.getElementById('checkout-form').setAttribute('novalidate', 'true');
+            
+            isOptions = false;
+            }
+            
+
+        
+    });
+
+    // 4. Map Confirm Button Clicked
+    btnCloseMap.addEventListener('click', function() {
+       
+
+        if (mapPin.style.display === 'block') {
+             mapPopup.style.display = 'none'; 
+
+        document.querySelectorAll('.hideCheckout').forEach(element => {
+                element.classList.remove('hideCheckout');
+            });
+
+        shippingAddress.style.display = 'none';
+            addressTitle.style.display = 'none';
+                mapPin.style.display = 'none'
+        } else {
+
+            alert("Please click a designated black Roll an Go pickup spot.");
+        }
+        
+    });
+
+    btnBack.addEventListener('click', function() {
+        mapPin.style.display = 'none'   
+        mapPopup.style.display = 'none'; 
+
+        // deliveryDialogue.style.display = 'flex';
+        // followUpBox.style.display = 'none';
+        deliveryDialogue.style.display = 'block';
+        followUpBox.style.display = 'none';
+
+            // shippingAddress.style.display = 'flex';
+            // addressTitle.style.display = 'flex';
+            zip.required = true;
+            address.required = true;
+            city.required = true;
+            state.required = true;
+            country.required = true;
+            shipping = true;
+            pdetails.innerHTML = "3. Payment Details";
+
+            shippingAddress.style.display = 'none';
+            addressTitle.style.display = 'none';
+
+        Array.from(checkoutForm.children).forEach(child => {
+            child.classList.add('hideCheckout');
+            });
+            
+    });
+
+    shipMethodConfirm.addEventListener('click', function() {
+
+        document.querySelectorAll('.hideCheckout').forEach(element => {
+                element.classList.remove('hideCheckout');
+            });
+
+        shippingAddress.style.display = 'block';
+    addressTitle.style.display = 'block';
+
+
+    isOptions = false;
+
+    });
+
+    
+    btnBackPage.addEventListener('click', function() {
+             
+
+        if (isOptions === true) {
+
+            window.location.href = "index.html"
+            mapPopup.style.display = 'none'; 
+            pdetails.innerHTML = "3. Payment Details";
+            
+        }
+
+        if (isOptions === false) {
+
+            // deliveryDialogue.style.display = 'flex';
+        // followUpBox.style.display = 'none';
+        deliveryDialogue.style.display = 'block';
+        followUpBox.style.display = 'none';
+
+            // shippingAddress.style.display = 'flex';
+            // addressTitle.style.display = 'flex';
+            zip.required = true;
+            address.required = true;
+            city.required = true;
+            state.required = true;
+            country.required = true;
+            shipping = true;
+            shippingAddress.style.display = 'none';
+    addressTitle.style.display = 'none';
+            pdetails.innerHTML = "3. Payment Details";
+
+        Array.from(checkoutForm.children).forEach(child => {
+            child.classList.add('hideCheckout');
+            });
+
+        isOptions = true;
+
+
+        };
+        
+        
+
+        
+
+    });
+
+
+    completeOrder.addEventListener('click', function() {
+       document.getElementById('checkout-form').removeAttribute('novalidate');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</html>
